@@ -22,8 +22,8 @@ This repository contains a lightweight Beowulf cluster implementation using Dock
 
 1.  **Clone this repository:**
     ```bash
-    git clone <your-repo-url>
-    cd <repo-directory-name>
+    git clone https://github.com/AliHamzaAzam/docker-mpi-cluster.git
+    cd docker-mpi-cluster
     ```
 
 2.  **Build and start the cluster:**
