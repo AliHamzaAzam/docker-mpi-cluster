@@ -1,21 +1,44 @@
-# Use mpic++ for C++ MPI programs
-CXX = mpic++
-# Use mpicc for C MPI programs
-CC = mpicc
+# Compiler settings - Can be customized.
+MPICC = mpicc
+MPICXX = mpic++
+CC = gcc
+CXX = g++
 
-# C++ flags
-CXXFLAGS = -Wall -O2 -std=c++11
-# C flags
-CFLAGS = -Wall -O2
+# Compiler flags
+CFLAGS = -Wall -Wextra -O2
+CXXFLAGS = -Wall -Wextra -O2 -std=c++11
+OMPFLAGS = -fopenmp # OpenMP flag
+# CLFLAGS = -lOpenCL # OpenCL flag (Removed)
 
-# Default target: build both hello_world (C) and MPI (C++)
-all: hello_world MPI
+# Linker flags
+LDFLAGS =
 
-MPI: MPI.cpp # Removed utility.h dependency as the new MPI.cpp doesn't use it
-	$(CXX) $(CXXFLAGS) -o $@ MPI.cpp 
-# Rule to build the C MPI program
+# MPI applications
+MPI_APPS = hello_world MPI
+
+# OpenMP applications
+OMP_APPS = openmp_test
+
+# All target executables
+TARGETS = $(MPI_APPS) $(OMP_APPS) 
+
+# Default target
+all: $(TARGETS)
+
+# Rule to compile C MPI applications
 hello_world: hello_world.c
-	$(CC) $(CFLAGS) -o $@ $< 
+	$(MPICC) $(CFLAGS) $< -o $@ $(LDFLAGS)
+
+# Rule to compile C++ MPI applications
+MPI: MPI.cpp
+	$(MPICXX) $(CXXFLAGS) $< -o $@ $(LDFLAGS)
+
+# Rule to compile C++ OpenMP applications
+openmp_test: openmp_test.cpp
+	$(CXX) $(CXXFLAGS) $(OMPFLAGS) $< -o $@ $(LDFLAGS)
+
 # Clean target
 clean:
-	rm -f hello_world MPI *.o 
+	rm -f $(TARGETS) *.o
+
+.PHONY: all clean

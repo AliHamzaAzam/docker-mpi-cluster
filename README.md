@@ -62,6 +62,12 @@ This repository contains a lightweight Beowulf cluster implementation using Dock
         ```bash
         mpirun --hostfile /home/mpiuser/hostfile -np 3 /home/mpiuser/mpi_apps/MPI
         ```
+    *   **OpenMP Example (runs on the master node):**
+        The `make` command already compiled the OpenMP test. Run it directly:
+        ```bash
+        /home/mpiuser/mpi_apps/openmp_test
+        ```
+
 
 ## Working with MPI Applications
 
