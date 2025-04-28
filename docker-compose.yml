@@ -1,0 +1,40 @@
+
+services:
+  master:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mpi_master
+    hostname: master
+    networks:
+      - mpi_net
+    volumes:
+      - ./mpi_apps:/home/mpiuser/mpi_apps
+    ports:
+      - "2222:22"  # Map SSH to host port
+
+  worker1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mpi_worker1
+    hostname: worker1
+    networks:
+      - mpi_net
+    volumes:
+      - ./mpi_apps:/home/mpiuser/mpi_apps
+
+  worker2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mpi_worker2
+    hostname: worker2
+    networks:
+      - mpi_net
+    volumes:
+      - ./mpi_apps:/home/mpiuser/mpi_apps
+
+networks:
+  mpi_net:
+    driver: bridge
