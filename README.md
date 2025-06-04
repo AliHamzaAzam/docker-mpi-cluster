@@ -99,6 +99,8 @@ You can connect VS Code directly to the `mpi_master` container for a seamless de
 
 For instructions on extending this cluster across multiple physical machines, see the `multi_laptop_setup.md` file.
 
+> **Note:** The multi-laptop (multi-node) setup has not been tested yet. The current setup has been verified on a single machine using multiple containers. If you try this on multiple laptops or hosts, please share your experience or any issues you encounter!
+
 ## Shutting Down
 
 To stop and remove the containers and network:
