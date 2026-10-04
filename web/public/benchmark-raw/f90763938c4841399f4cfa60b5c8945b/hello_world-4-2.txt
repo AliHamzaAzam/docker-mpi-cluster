@@ -1,0 +1,10 @@
+command: mpirun --allow-run-as-root --oversubscribe --bind-to none -np 4 /workspace/c18-final/benchmarks/.build/hello_world
+wall_ms: 279.891737
+
+stdout:
+Hello world from processor 343e50285498, rank 0 out of 4 processors
+Hello world from processor 343e50285498, rank 1 out of 4 processors
+Hello world from processor 343e50285498, rank 3 out of 4 processors
+Hello world from processor 343e50285498, rank 2 out of 4 processors
+
+stderr:

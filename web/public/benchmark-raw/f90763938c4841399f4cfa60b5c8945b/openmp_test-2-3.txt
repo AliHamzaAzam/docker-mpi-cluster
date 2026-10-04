@@ -1,0 +1,11 @@
+command: env OMP_NUM_THREADS=2 OMP_DYNAMIC=FALSE /workspace/c18-final/benchmarks/.build/openmp_test
+wall_ms: 5.314978
+
+stdout:
+Starting OpenMP test...
+Parallel region executing with 2 threads.
+Hello from thread 0
+Hello from thread 1
+OpenMP test finished.
+
+stderr:

@@ -1,0 +1,7 @@
+command: mpirun --allow-run-as-root --oversubscribe --bind-to none -np 1 /workspace/c18-final/benchmarks/.build/MPI
+wall_ms: 251.761059
+
+stdout:
+Rank 0 of 1 is running on processor: 343e50285498 (IP: 172.26.91.251)
+
+stderr:

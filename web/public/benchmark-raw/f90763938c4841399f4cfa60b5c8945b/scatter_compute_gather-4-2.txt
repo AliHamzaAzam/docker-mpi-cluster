@@ -1,0 +1,7 @@
+command: mpirun --allow-run-as-root --oversubscribe --bind-to none -np 4 /workspace/c18-final/benchmarks/.build/scatter_compute_gather
+wall_ms: 295.263601
+
+stdout:
+ranks=4 checksum=1496 kernel_seconds=0.003913276 output=1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256
+
+stderr:
