@@ -1,0 +1,18 @@
+{
+  "name": "mpi-cluster-results",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "tsc -p tsconfig.test.json && node --test test/*.test.mjs",
+    "test:browser": "node test/browser.mjs"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7"
+  }
+}

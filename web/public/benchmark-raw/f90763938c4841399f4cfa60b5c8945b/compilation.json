@@ -1,0 +1,26 @@
+[
+  {
+    "stdout": "",
+    "stderr": "",
+    "wallMs": 77.680555,
+    "command": "mpicc -I/tmp/c18-openmpi-dev/usr/lib/x86_64-linux-gnu/openmpi/include -L/workspace/c18-final/benchmarks/.build -Wall -Wextra -O2 mpi_apps/hello_world.c -o /workspace/c18-final/benchmarks/.build/hello_world"
+  },
+  {
+    "stdout": "",
+    "stderr": "",
+    "wallMs": 394.648167,
+    "command": "mpic++ -I/tmp/c18-openmpi-dev/usr/lib/x86_64-linux-gnu/openmpi/include -L/workspace/c18-final/benchmarks/.build -Wall -Wextra -O2 -std=c++11 mpi_apps/MPI.cpp -o /workspace/c18-final/benchmarks/.build/MPI"
+  },
+  {
+    "stdout": "",
+    "stderr": "",
+    "wallMs": 297.502179,
+    "command": "g++ -Wall -Wextra -O2 -std=c++11 -fopenmp mpi_apps/openmp_test.cpp -o /workspace/c18-final/benchmarks/.build/openmp_test"
+  },
+  {
+    "stdout": "",
+    "stderr": "",
+    "wallMs": 104.472396,
+    "command": "mpicc -I/tmp/c18-openmpi-dev/usr/lib/x86_64-linux-gnu/openmpi/include -L/workspace/c18-final/benchmarks/.build -Wall -Wextra -O2 benchmarks/scatter_compute_gather.c -o /workspace/c18-final/benchmarks/.build/scatter_compute_gather"
+  }
+]

@@ -1,0 +1,76 @@
+Traceback (most recent call last):
+  File "/workspace/c18-bench/benchmarks/run.py", line 103, in <module>
+    main()
+  File "/workspace/c18-bench/benchmarks/run.py", line 50, in main
+    command(['docker', 'build', '--network=host', '-f', 'benchmarks/Dockerfile', '-t', IMAGE, '.'])
+  File "/workspace/c18-bench/benchmarks/run.py", line 24, in command
+    raise RuntimeError(f'{args!r}\n{result.stdout}\n{result.stderr}')
+RuntimeError: ['docker', 'build', '--network=host', '-f', 'benchmarks/Dockerfile', '-t', 'c18-mpi-benchmark', '.']
+
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 776B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/debian:bullseye-slim
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/6] FROM docker.io/library/debian:bullseye-slim
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 274B done
+#5 DONE 0.0s
+
+#6 [2/6] RUN apt-get update && apt-get install -y --no-install-recommends build-essential openmpi-bin libopenmpi-dev openssh-server openssh-client python3 && rm -rf /var/lib/apt/lists/*
+#6 1.277 Err:1 http://deb.debian.org/debian bullseye InRelease
+#6 1.277   Temporary failure resolving 'deb.debian.org'
+#6 6.283 Err:2 http://deb.debian.org/debian-security bullseye-security InRelease
+#6 6.283   Temporary failure resolving 'deb.debian.org'
+#6 6.285 Err:3 http://deb.debian.org/debian bullseye-updates InRelease
+#6 6.285   Temporary failure resolving 'deb.debian.org'
+#6 6.289 Reading package lists...
+#6 6.296 W: Failed to fetch http://deb.debian.org/debian/dists/bullseye/InRelease  Temporary failure resolving 'deb.debian.org'
+#6 6.296 W: Failed to fetch http://deb.debian.org/debian-security/dists/bullseye-security/InRelease  Temporary failure resolving 'deb.debian.org'
+#6 6.296 W: Failed to fetch http://deb.debian.org/debian/dists/bullseye-updates/InRelease  Temporary failure resolving 'deb.debian.org'
+#6 6.296 W: Some index files failed to download. They have been ignored, or old ones used instead.
+#6 6.306 Reading package lists...
+#6 6.313 Building dependency tree...
+#6 6.313 Reading state information...
+#6 6.315 Package openssh-server is not available, but is referred to by another package.
+#6 6.315 This may mean that the package is missing, has been obsoleted, or
+#6 6.315 is only available from another source
+#6 6.315
+#6 6.316 E: Unable to locate package build-essential
+#6 6.316 E: Unable to locate package openmpi-bin
+#6 6.316 E: Unable to locate package libopenmpi-dev
+#6 6.316 E: Package 'openssh-server' has no installation candidate
+#6 6.316 E: Unable to locate package openssh-client
+#6 6.316 E: Unable to locate package python3
+#6 ERROR: process "/bin/sh -c apt-get update && apt-get install -y --no-install-recommends build-essential openmpi-bin libopenmpi-dev openssh-server openssh-client python3 && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+------
+ > [2/6] RUN apt-get update && apt-get install -y --no-install-recommends build-essential openmpi-bin libopenmpi-dev openssh-server openssh-client python3 && rm -rf /var/lib/apt/lists/*:
+6.315 Package openssh-server is not available, but is referred to by another package.
+6.315 This may mean that the package is missing, has been obsoleted, or
+6.315 is only available from another source
+6.315
+6.316 E: Unable to locate package build-essential
+6.316 E: Unable to locate package openmpi-bin
+6.316 E: Unable to locate package libopenmpi-dev
+6.316 E: Package 'openssh-server' has no installation candidate
+6.316 E: Unable to locate package openssh-client
+6.316 E: Unable to locate package python3
+------
+Dockerfile:2
+--------------------
+   1 |     FROM debian:bullseye-slim
+   2 | >>> RUN apt-get update && apt-get install -y --no-install-recommends build-essential openmpi-bin libopenmpi-dev openssh-server openssh-client python3 && rm -rf /var/lib/apt/lists/*
+   3 |     RUN mkdir -p /run/sshd /root/.ssh && ssh-keygen -q -t ed25519 -N '' -f /root/.ssh/id_ed25519 && cp /root/.ssh/id_ed25519.pub /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys && printf 'Host *\n StrictHostKeyChecking no\n UserKnownHostsFile /dev/null\n LogLevel ERROR\n' > /root/.ssh/config
+   4 |     COPY mpi_apps /apps
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c apt-get update && apt-get install -y --no-install-recommends build-essential openmpi-bin libopenmpi-dev openssh-server openssh-client python3 && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100

@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "mode": "native",
+  "generatedAt": "2026-10-04T12:54:10.312550+00:00",
+  "provenance": {
+    "currentRevision": "5407e541af7d8c1b77aeb500e614eea84a5585fb",
+    "workingTreeDirty": true,
+    "executionNote": "Native fallback for C18: Docker 28.4.0 ran debian:bullseye-slim, but OpenMPI image builds failed resolving deb.debian.org with default and host networking. Existing native OpenMPI 5.0.7 used with matching official Debian development package extracted locally. This records a native cloud run, not Docker or multi-laptop performance."
+  },
+  "machine": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "logicalCpus": 5,
+    "allowedCpus": 5,
+    "cpuQuota": "400000 100000",
+    "kernel": "Linux 6.18.44",
+    "architecture": "x86_64"
+  },
+  "toolchain": {
+    "compiler": "gcc (Debian 14.2.0-19) 14.2.0",
+    "cppCompiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "mpi": "mpirun (Open MPI) 5.0.7\n\nReport bugs to https://www.open-mpi.org/community/help/",
+    "flags": "C: -Wall -Wextra -O2; C++: -Wall -Wextra -O2 -std=c++11; OpenMP: -fopenmp",
+    "extraFlags": [
+      "-I/tmp/c18-openmpi-dev/usr/lib/x86_64-linux-gnu/openmpi/include",
+      "-L/workspace/c18-final/benchmarks/.build"
+    ],
+    "sourceSha256": {
+      "mpi_apps/hello_world.c": "7b949ca4ee2e1a4aa4a90a44c5ef51d872ea4f8d1866fae49a50c5c8bd8648bc",
+      "mpi_apps/MPI.cpp": "7c0335027d85e8ecb97e43b13eeb6dd1d6586592731272ffbb4da5429bb91beb",
+      "mpi_apps/openmp_test.cpp": "65b7e9bad0ae156351587852c352dfa1e6a8f85c6f83b9ce8a10842b78ee1ede",
+      "benchmarks/scatter_compute_gather.c": "a8e3191df56c9e66173cd262928995e651ce94cc4ba8c1442942ff05db79e630"
+    }
+  },
+  "methodology": {
+    "description": "Native cloud-host runs, not Docker measurements. Three measured end-to-end wall-clock invocations after one warmup. Includes process launch, MPI startup, output and teardown.",
+    "repetitions": 3,
+    "units": "milliseconds",
+    "limitations": [
+      "Tiny demonstration workloads measure mostly startup overhead, not useful compute scaling.",
+      "All processes share one cloud host; no Docker or multi-laptop performance claim.",
+      "OpenMP uses threads and is not an MPI process benchmark.",
+      "Shared cloud CPU scheduling and oversubscription can affect timings."
+    ]
+  },
+  "runs": [
+    {
+      "app": "hello_world",
+      "workers": 1,
+      "parallelism": "MPI processes on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        236.457031,
+        230.667393,
+        235.547134
+      ],
+      "medianMs": 235.547134,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/hello_world-1-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/hello_world-1-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/hello_world-1-3.txt"
+      ]
+    },
+    {
+      "app": "hello_world",
+      "workers": 2,
+      "parallelism": "MPI processes on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        243.249579,
+        248.06803,
+        239.924585
+      ],
+      "medianMs": 243.249579,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/hello_world-2-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/hello_world-2-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/hello_world-2-3.txt"
+      ]
+    },
+    {
+      "app": "hello_world",
+      "workers": 4,
+      "parallelism": "MPI processes on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        278.643517,
+        279.891737,
+        304.872158
+      ],
+      "medianMs": 279.891737,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/hello_world-4-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/hello_world-4-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/hello_world-4-3.txt"
+      ]
+    },
+    {
+      "app": "MPI",
+      "workers": 1,
+      "parallelism": "MPI processes on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        251.761059,
+        247.431521,
+        237.523503
+      ],
+      "medianMs": 247.431521,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/MPI-1-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/MPI-1-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/MPI-1-3.txt"
+      ]
+    },
+    {
+      "app": "MPI",
+      "workers": 2,
+      "parallelism": "MPI processes on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        261.645663,
+        256.060218,
+        249.406192
+      ],
+      "medianMs": 256.060218,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/MPI-2-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/MPI-2-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/MPI-2-3.txt"
+      ]
+    },
+    {
+      "app": "MPI",
+      "workers": 4,
+      "parallelism": "MPI processes on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        335.624768,
+        314.078345,
+        276.707427
+      ],
+      "medianMs": 314.078345,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/MPI-4-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/MPI-4-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/MPI-4-3.txt"
+      ]
+    },
+    {
+      "app": "openmp_test",
+      "workers": 1,
+      "parallelism": "OpenMP threads on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        3.967934,
+        4.775424,
+        4.553442
+      ],
+      "medianMs": 4.553442,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/openmp_test-1-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/openmp_test-1-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/openmp_test-1-3.txt"
+      ]
+    },
+    {
+      "app": "openmp_test",
+      "workers": 2,
+      "parallelism": "OpenMP threads on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        6.693332,
+        4.345754,
+        5.314978
+      ],
+      "medianMs": 5.314978,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/openmp_test-2-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/openmp_test-2-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/openmp_test-2-3.txt"
+      ]
+    },
+    {
+      "app": "openmp_test",
+      "workers": 4,
+      "parallelism": "OpenMP threads on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        5.386222,
+        3.831515,
+        4.051176
+      ],
+      "medianMs": 4.051176,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/openmp_test-4-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/openmp_test-4-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/openmp_test-4-3.txt"
+      ]
+    },
+    {
+      "app": "scatter_compute_gather",
+      "workers": 1,
+      "parallelism": "MPI processes on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        237.108648,
+        238.632926,
+        237.33376
+      ],
+      "medianMs": 237.33376,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/scatter_compute_gather-1-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/scatter_compute_gather-1-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/scatter_compute_gather-1-3.txt"
+      ],
+      "checksum": 1496
+    },
+    {
+      "app": "scatter_compute_gather",
+      "workers": 2,
+      "parallelism": "MPI processes on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        251.483639,
+        248.885572,
+        262.866634
+      ],
+      "medianMs": 251.483639,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/scatter_compute_gather-2-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/scatter_compute_gather-2-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/scatter_compute_gather-2-3.txt"
+      ],
+      "checksum": 1496
+    },
+    {
+      "app": "scatter_compute_gather",
+      "workers": 4,
+      "parallelism": "MPI processes on one cloud host",
+      "containerCount": 0,
+      "samplesMs": [
+        278.822351,
+        295.263601,
+        261.145706
+      ],
+      "medianMs": 278.822351,
+      "rawFiles": [
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/scatter_compute_gather-4-1.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/scatter_compute_gather-4-2.txt",
+        "benchmark-raw/f90763938c4841399f4cfa60b5c8945b/scatter_compute_gather-4-3.txt"
+      ],
+      "checksum": 1496
+    }
+  ],
+  "scatter": {
+    "input": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "output": [
+      1,
+      4,
+      9,
+      16,
+      25,
+      36,
+      49,
+      64,
+      81,
+      100,
+      121,
+      144,
+      169,
+      196,
+      225,
+      256
+    ],
+    "checksum": 1496
+  },
+  "reproduction": "python3 benchmarks/run.py"
+}

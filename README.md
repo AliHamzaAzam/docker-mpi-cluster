@@ -106,3 +106,52 @@ For instructions on extending this cluster across multiple physical machines, se
 To stop and remove the containers and network:
 ```bash
 docker-compose down
+```
+
+## Results site
+
+The static `web/` site explains SSH launch, the hostfile, Docker networking, the
+sample applications, and the unverified multi-laptop extension. Its interactive
+SVG computes a real scatter, square, and gather model for 1, 2, or 4 ranks. The
+model is an explanation, not a browser MPI implementation or benchmark.
+
+With Node.js 22.12 or later, run:
+
+```bash
+cd web
+npm ci
+npm test
+npm run build
+npm run preview
+```
+
+The site fetches `web/public/results.json` and requires measured timings and
+machine/compiler provenance. Missing or invalid measurements display an explicit
+unavailable state. Docker and native measurements are labeled distinctly. See the
+results panel for reproduction commands and raw output. Multi-laptop execution is
+not verified by single-host benchmarks.
+
+The committed dataset contains 36 measured native invocations: the three sample
+applications plus a deterministic MPI scatter-compute-gather program. MPI uses
+1, 2, and 4 processes; OpenMP uses 1, 2, and 4 threads. Docker could launch a base
+container, but the OpenMPI image build could not resolve Debian's package host.
+These are native results, not Docker results. Raw output, compiler flags, source
+hashes, the failed Docker build, and exact regeneration instructions are documented
+in [benchmarks/README.md](benchmarks/README.md).
+
+With a complete OpenMPI development toolchain, regenerate and test from the
+repository root before rebuilding the site:
+
+```bash
+python3 benchmarks/run.py
+python3 -m unittest discover -s benchmarks -p 'test_*.py'
+```
+
+Regeneration stages a complete dataset before replacing the manifest, preserving
+previous evidence if compilation or measurement fails. Tiny sample programs mostly
+measure launch overhead, so the site does not claim useful compute speedup.
+
+For the served Chromium check, start `npm run preview -- --port 4178` and run
+`npm run test:browser` in another terminal. The harness uses an existing Playwright
+installation (`PLAYWRIGHT_PATH`) and Chromium (`CHROME_PATH`), with cloud defaults;
+it does not download browsers. Set `TEST_URL` when serving on another port.
